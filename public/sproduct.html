@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> MUSIC MART</title>
+        <script src="https://kit.fontawesome.com/32bf714122.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <script src="./script.js"></script>
+       <section id="header">
+           <a href="#"><img src="images/logo1.png" alt="" class="logo"></a>
+           <ul id="navbar">
+               <li><a href="index.html">Home</a></li>
+               <li><a class="active" href="shop.html">Shop</a></li>
+               <li><a href="about.html">About</a></li>
+               <li><a href="contact.html">Contact</a></li>
+               <li><a href="./cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+           </ul>
+       </section>
+       <section id="Page-Header">
+        <h2>Choose Your Next Instrument with Confidence</h2>
+        <p>Buying a Instrument online should be fun. That’s why we created the Sweetwater Instrument Gallery, to get you as close as possible</p>
+       </section>
+       <section id="prodetails" class="section-p1">
+        <div id="single-pro-image">
+            <img src="" width="100%" id="Mainimg" alt="">
+        </div>
+        <div id="single-pro-details">
+            <h6 id="breadcrumb"></h6>
+            <h4 id="product-name">Musical Instrument</h4>
+            <h2 id="product-price"></h2>
+            <input type="number" value="1">
+            <button>Add to Cart</button>
+            <h4>Product Details</h4>
+            <span id="product-details"></span>
+        </div>
+    </section>
+    
+    <script>
+        // Define product details
+        const products = {
+            alto: {
+                name: "Alto",
+                price: "RS.3892",
+                img: "images/products/alto.jpg",
+                details: `
+                    Exceptional Craftsmanship: Precision-engineered body ensuring superior sound and durability.<br>
+                    Comfortable Ergonomics: Thoughtfully designed for ease of playability and hand positioning.<br>
+                    High-Quality Accessories: Includes mouthpiece, neck strap, reeds, cleaning kit, carrying case.<br>
+                    Customizable Play: Adjustable features like thumb rest, tuning slides.
+                `
+            },
+            altosaxo: {
+                name: "Altosaxo",
+                price: "RS.3892",
+                img: "images/products/altosaxo.jpg",
+                details: `
+                    Exceptional Craftsmanship: Precision-engineered body ensuring superior sound and durability.<br>
+                    Comfortable Ergonomics: Thoughtfully designed for ease of playability and hand positioning.<br>
+                    High-Quality Accessories: Includes mouthpiece, neck strap, reeds, cleaning kit, carrying case.<br>
+                    Customizable Play: Adjustable features like thumb rest, tuning slides.
+                `
+
+            },
+            baritone: {
+                name: "baritone",
+                price: "RS.3892",
+                img: "images/products/baritone.jpg",
+                details: `
+                    Exceptional Craftsmanship: Precision-engineered body ensuring superior sound and durability.<br>
+                    Comfortable Ergonomics: Thoughtfully designed for ease of playability and hand positioning.<br>
+                    High-Quality Accessories: Includes mouthpiece, neck strap, reeds, cleaning kit, carrying case.<br>
+                    Customizable Play: Adjustable features like thumb rest, tuning slides.
+                `
+
+            },
+            bass: {
+                name: "bass",
+                price: "RS.4992",
+                img: "images/products/bass.jpg",
+                details: `
+                    Warm and rich tonal quality ideal for various musical styles.<br>
+                    Sturdy construction ensures durability for extended use.<br>
+                    Comes with high-quality accessories like a case, reeds, and neck strap.<br>
+                    Ergonomically designed for comfort during long performances.
+                `
+            },
+            concerte: {
+                name: "concerte",
+                price: "RS.5992",
+                img: "images/products/concerte.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            digital: {
+                name: "Digital Keyboard",
+                price: "RS.5992",
+                img: "images/products/digital.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            electric: {
+                name: "Electric Guitar",
+                price: "RS.5992",
+                img: "images/products/electric.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            piccolo: {
+                name: "Piccolo",
+                price: "RS.5992",
+                img: "images/products/piccolo.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            plastic: {
+                name: "Plastic Fluit",
+                price: "RS.5992",
+                img: "images/products/plastic.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            soprano: {
+                name: "Soprano",
+                price: "RS.5992",
+                img: "images/products/soprano.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            semi: {
+                name: "Semi-Guitar",
+                price: "RS.5992",
+                img: "images/products/semi.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            tenor: {
+                name: "Tenor",
+                price: "RS.5992",
+                img: "images/products/tenor.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            upright: {
+                name: "Upright Keyboard",
+                price: "RS.5992",
+                img: "images/products/upright.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            wooden: {
+                name: "Wooden Fluit",
+                price: "RS.5992",
+                img: "images/products/wooden.jpg",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            handpan: {
+                name: "Electronic handpan",
+                price: "RS.5992",
+                img: "images/products/handpan.webp",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+            differentguiter: {
+                name: "Hybrid acoustic-digital guitar",
+                price: "RS.5992",
+                img: "images/products/differentguiter.webp",
+                details: `
+                    Bright and vibrant sound suitable for classical and modern music.<br>
+                    Lightweight and easy to carry for on-the-go musicians.<br>
+                    Includes essential accessories like a cleaning kit and carrying case.<br>
+                    Built for superior intonation and ease of play.
+                `
+            },
+
+        };
+    
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productKey = urlParams.get("product");
+    
+        // Find the product details
+        const product = products[productKey];
+    
+        // Update the page content if the product exists
+        if (product) {
+            document.getElementById("Mainimg").src = product.img;
+            document.getElementById("breadcrumb").innerText = `Home / ${product.name}`;
+            document.getElementById("product-name").innerText = product.name;
+            document.getElementById("product-price").innerText = product.price;
+            document.getElementById("product-details").innerHTML = product.details;
+        } else {
+            document.getElementById("prodetails").innerHTML = `
+                <h2>Product Not Found</h2>
+            `;
+        }
+    </script>
+    
+       
+
+    <section id="Newsletter" class="section-p1 section-m1">
+        <div class="Nt">
+            <h4>Sign Up For Newsletters</h4>
+            <p>Get E-mail updates about our shop and <span>special offers</span>.</p>
+        </div>
+        <div class="form">
+            <input type="email" placeholder="Your E-mail Address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+    <section>
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="./images/logo.png" alt="">
+                <h4>Contact</h4>
+                <p><b>Address:</b>: Music Mart, Ankola,UttarKannada-581314 </p>
+                <p><b>Phone:</b>+91 94837 76700 </p>
+                <p><b>Timing:</b>10am-2pm | 5pm-9pm. Mon-Sat</p>
+                <div class="follow">
+                    <h4>Social Media</h4>
+                    <div class="icon">
+                        
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="colabout">
+                <h4>About</h4>
+                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="colMyAcc">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">Wishlist</a>
+            </div>
+            <div class="copyright">
+                <p>@2024, </p>
+            </div>
+        </footer>
+
+    </section>
+    
+
+
+
+        
+        <script src="script.js"></script>
+    </body>
+    <script>document.querySelector('button').addEventListener('click', async function() {
+        try {
+            // Get quantity value
+            const quantity = parseInt(document.querySelector('input[type="number"]').value);
+            
+            if (quantity < 1) {
+                alert('Please select a valid quantity');
+                return;
+            }
+    
+            // Check if user is logged in
+            const statusResponse = await fetch('/api/user/status');
+            const statusData = await statusResponse.json();
+            
+            if (!statusData.loggedIn) {
+                alert('Please log in to add items to cart');
+                window.location.href = '/login.html';
+                return;
+            }
+    
+            // Get the current product data
+            const product = products[productKey];
+            
+            // Create array of promises for multiple insertions
+            const promises = [];
+            for(let i = 0; i < quantity; i++) {
+                const cartData = {
+                    name: product.name,
+                    prize: parseFloat(product.price.replace('RS.', '')),
+                    details: product.details,
+                    image_url: product.img
+                };
+    
+                promises.push(
+                    fetch('/api/cart/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(cartData)
+                    })
+                );
+            }
+    
+            // Wait for all insertions to complete
+            const results = await Promise.all(promises);
+            const allSuccessful = results.every(response => response.ok);
+            
+            if (allSuccessful) {
+                alert(`${quantity} item(s) added to cart successfully!`);
+            } else {
+                alert('Some items failed to add to cart');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while adding items to cart');
+        }
+    });
+    </script>
+</html>

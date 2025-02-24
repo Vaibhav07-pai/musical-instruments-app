@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <script src="https://kit.fontawesome.com/32bf714122.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script>
+</head>
+<body>
+    <section id="header">
+        <a href="./index.html"><img src="./images/logo.png" class="logo" alt=""></a>
+        <ul id="navbar">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./shop.html">Shop</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a class="active" href="./cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+            <li><a href="./login.html">Login Here</a></li>
+        </ul>
+    </section>
+    <section class="section-p1">
+        <h2>Your Cart</h2>
+        <table width="100%">
+            <thead>
+                <tr>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cart items will be dynamically populated here -->
+            </tbody>
+        </table>
+    </section>
+<script>
+    async function loadCartItems() {
+    try {
+        // Check if user is logged in
+        const statusResponse = await fetch('/api/user/status');
+        const statusData = await statusResponse.json();
+        
+        if (!statusData.loggedIn) {
+            alert('Please log in to view cart');
+            window.location.href = '/login.html';
+            return;
+        }
+
+        // Fetch cart items
+        const response = await fetch('/api/cart/items');
+        const cartItems = await response.json();
+
+        // Group items by name to count quantities
+        const groupedItems = cartItems.reduce((acc, item) => {
+            if (!acc[item.name]) {
+                acc[item.name] = {
+                    ...item,
+                    quantity: 1,
+                    totalPrize: item.prize
+                };
+            } else {
+                acc[item.name].quantity += 1;
+                acc[item.name].totalPrize += item.prize;
+            }
+            return acc;
+        }, {});
+
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = ''; // Clear existing items
+
+        // Update table headers to include quantity
+        const thead = document.querySelector('thead tr');
+        thead.innerHTML = `
+            <td>Remove</td>
+            <td>Image</td>
+            <td>Product</td>
+            <td>Quantity</td>
+            <td>Prize</td>
+            <td>Total</td>
+        `;
+
+        // Display grouped items
+        Object.values(groupedItems).forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><a href="#" class="remove-item" data-name="${item.name}"><i class="far fa-times-circle"></i></a></td>
+                <td><img src="${item.image_url}" alt="${item.name}" style="width: 50px;"></td>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>RS.${item.prize}</td>
+                <td>RS.${item.totalPrize}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        // Add total row
+        const totalPrize = Object.values(groupedItems).reduce((sum, item) => sum + item.totalPrize, 0);
+        const totalRow = document.createElement('tr');
+        totalRow.innerHTML = `
+            <td colspan="5" style="text-align: right"><strong>Total:</strong></td>
+            <td><strong>RS.${totalPrize}</strong></td>
+        `;
+        tbody.appendChild(totalRow);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while loading cart items');
+    }
+}
+// Add this JavaScript to your cart.html inside the <script> tag
+// Add click event handler for remove buttons
+document.addEventListener('click', async function(e) {
+    if (e.target.closest('.remove-item')) {
+        e.preventDefault();
+        const removeButton = e.target.closest('.remove-item');
+        const itemName = removeButton.dataset.name;
+        
+        try {
+            const response = await fetch('/api/cart/remove', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ itemName })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to remove item');
+            }
+
+            // Reload cart items to refresh the display
+            await loadCartItems();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to remove item from cart');
+        }
+    }
+});
+// Load cart items when page loads
+document.addEventListener('DOMContentLoaded', loadCartItems);
+</script>
+    <script src="./script.js"></script> 
+</body>
+</html>
